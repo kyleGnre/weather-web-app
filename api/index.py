@@ -5,8 +5,10 @@ import requests
 import json
 import openai 
 
+import os
+
 def load_api_keys():
-    secrets_file = "C:/Users/anony/Documents/GitHub/weather-web-app/api/secrets.json"
+    secrets_file = os.path.join(os.path.dirname(__file__), "secrets.json")
     try:
         with open(secrets_file) as f:
             secrets = json.load(f)
