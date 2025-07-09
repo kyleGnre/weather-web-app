@@ -3,4 +3,5 @@ openai==0.28
 flask-cors==4.0.0
 requests>=2.31.0
 numpy==2.1.0
+python==3.13
 # pip install openai==0.28
