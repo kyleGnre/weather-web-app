@@ -224,7 +224,7 @@ export default function RectanglePage() {
                 <p className="text-white text-2xl mb-10">AIR CONDITIONS</p>
                 <div className="grid grid-cols-4 gap-8">  
                   <div className="flex flex-col items-center">
-                    <p className="text-White text8x1 mb-2">Feels Like</p>
+                    <p className="text-white text8x1 mb-2">Feels Like</p>
                     <p className="text-white text-3xl">{weatherData.feels_like ? `${weatherData.feels_like}°${getUnitSymbol(units)}` : ''}</p>
                   </div>
                   <div className="flex flex-col items-center">
@@ -298,13 +298,13 @@ export default function RectanglePage() {
         <div className="grid grid-rows-1 gap-8">
           <div className="bg-gray-700 p-8 rounded-[20px] min-h-[100px]">
             <p className="text-white text-4xl mb-4">Previous Locations</p>
-            <p>
+            <ul>
                 {previousLocations.map((location, index) => (
                     <li key={index} className="text-white text-sm">
                         {location}
                     </li>
                 ))}
-            </p>
+            </ul>
           </div>
         </div>
       </div>
