@@ -249,9 +249,9 @@ export default function RectanglePage() {
           {/* ChatGPT block */}
           <div className="bg-white p-6 rounded-[20px] min-h-[300px] relative"> {/* Add relative positioning here */}
             <div className="h-full overflow-auto">
-                <p className="text-gray-800 md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                <div className="text-gray-800 md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
                     <ChatGPT user_city={ user_city }/>
-                </p>
+                </div>
             </div>
             <p className="text-gray-600 text-right text-sm absolute bottom-4 right-5">
               {/* This will now be positioned absolute to the parent div */}
