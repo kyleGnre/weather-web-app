@@ -19,8 +19,8 @@ def load_api_keys():
 
 
 api_keys = load_api_keys()
-openweather_api_key = api_keys['ee4fc84f29103a26ae2400ec30a26411']
-openai.api_key = api_keys['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']
+openweather_api_key = api_keys['OPENWEATHER_API_KEY']
+openai.api_key = api_keys['OPENAI_API_KEY']
 
 app = Flask(__name__)
 CORS(app)
