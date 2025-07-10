@@ -43,7 +43,7 @@ def send_location():
     weather_response = requests.get(weather_URL)
 
     if not weather_response.ok:
-        print("❌ Weather API failed:", weather_response.text)
+        print("Weather API failed:", weather_response.text)
         return jsonify({'error': 'Failed to retrieve weather data'}), 500
 
     weather_data = weather_response.json()
@@ -92,7 +92,7 @@ def send_location():
             # 7-Day Forecast
             forecast_data = process_forecast_data(onecall_data.get('daily', [])[:7])
         else:
-            print("❌ OneCall failed:", onecall_response.text)
+            print("OneCall failed:", onecall_response.text)
 
     return jsonify({
         'city': city,
@@ -120,27 +120,27 @@ def process_forecast_data(daily_forecast):
 
 @app.route('/api/chatgpt', methods=['POST'])
 def chatgptResponse():
-    input = request.get_json()
-    print("Received data:", input)
-
-    user_city = input.get('user_city', '').strip()
-    if not user_city:
-        return jsonify({'text': 'City name not provided.'}), 400
-
-    messages = [{
-        'role': 'user',
-        'content': (
-            f"What are some things to do in {user_city}? Please keep the response short (around 50 words or less). "
-            "I want the answer to be in-line with this example: "
-            "If the question is regarding Houston, I want the answer to be "
-            "'In Houston, consider exploring Buffalo Bayou Park where you can take a stroll or bike ride along the scenic trails that wind through this 160-acre park', "
-            "then any more supplemental details (DO NOT EXPLICITLY STATE THAT YOU ARE PROVIDING SUPPLEMENTAL DETAILS). "
-            "KEEP THE RESPONSE SHORT! THIS IS GOING TO BE USED ON THE FRONT PAGE OF A WEATHER APP. "
-            "DO NOT MENTION THE SAME SUGGESTION MORE THAN ONCE, ALWAYS PICK SOMETHING NEW FROM THE AREA."
-        )
-    }]
-
     try:
+        input = request.get_json()
+        print("Received data:", input)
+
+        user_city = input.get('user_city', '').strip()
+        if not user_city:
+            return jsonify({'text': 'City name not provided.'}), 400
+
+        messages = [{
+            'role': 'user',
+            'content': (
+                f"What are some things to do in {user_city}? Please keep the response short (around 50 words or less). "
+                "I want the answer to be in-line with this example: "
+                "If the question is regarding Houston, I want the answer to be "
+                "'In Houston, consider exploring Buffalo Bayou Park where you can take a stroll or bike ride along the scenic trails that wind through this 160-acre park', "
+                "then any more supplemental details (DO NOT EXPLICITLY STATE THAT YOU ARE PROVIDING SUPPLEMENTAL DETAILS). "
+                "KEEP THE RESPONSE SHORT! THIS IS GOING TO BE USED ON THE FRONT PAGE OF A WEATHER APP. "
+                "DO NOT MENTION THE SAME SUGGESTION MORE THAN ONCE, ALWAYS PICK SOMETHING NEW FROM THE AREA."
+            )
+        }]
+
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=messages
@@ -148,9 +148,11 @@ def chatgptResponse():
         answer = completion['choices'][0]['message']['content'].strip()
         print("GPT response:", answer)
         return jsonify({'text': answer})
+
     except Exception as e:
-        print("❌ OpenAI Error:", str(e))
-        return jsonify({'text': 'ChatGPT failed to respond. Check API key or internet.'}), 500
+        print("Error in /api/chatgpt:", str(e))
+        return jsonify({'text': 'Internal server error occurred.'}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5328, debug=True)
