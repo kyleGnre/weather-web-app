@@ -30,6 +30,7 @@ def send_location():
     data = request.get_json()
     user_location = data.get('userLocation', 'Houston')
     units = data.get('units', 'imperial')
+    print("Received weather request:", data)
 
     # First, use the weather API to get basic weather info and coordinates
     weather_URL = f'http://api.openweathermap.org/data/2.5/weather?q={user_location}&units={units}&appid={openweather_api_key}'
