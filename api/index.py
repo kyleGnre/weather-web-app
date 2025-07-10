@@ -17,10 +17,16 @@ def load_api_keys():
         print(f"Error loading secrets file: {e}")
         return None
 
-
 api_keys = load_api_keys()
-openweather_api_key = api_keys['OPENWEATHER_API_KEY']
-openai.api_key = api_keys['OPENAI_API_KEY']
+
+if api_keys is None:
+    raise RuntimeError("Failed to load API keys from secrets.json")
+
+try:
+    openweather_api_key = api_keys['OPENWEATHER_API_KEY']
+    openai.api_key = api_keys['OPENAI_API_KEY']
+except KeyError as e:
+    raise RuntimeError(f"Missing expected API key in secrets.json: {e}")
 
 app = Flask(__name__)
 CORS(app)
