@@ -203,7 +203,7 @@ export default function RectanglePage() {
                 </div>
 
                 <div className="bg-[#0C1117] p-8 rounded-[20px]">
-                    <p className="text-white text-2xl mb-4">TODAY'S FORECAST</p>
+                    <p className="text-white text-2xl mb-4">TODAY&apos;S FORECAST</p>
                     <div className="grid grid-cols-6 gap-8">
                       {weatherData.hourly_data.length > 0 ? (
                         weatherData.hourly_data.map((hourlyEntry: { temp: string; time: string }, index) => (
